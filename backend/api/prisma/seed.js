@@ -1,22 +1,30 @@
-const { PrismaClient } = require('../generated/prisma')
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 async function main() {
-  const products = [
-    { title: 'Farol corolla 2015 Arteb ', description: 'Produto original feito em acrilico resistent', price: 49.9,imageUrl: 'https://example.com/images/farol-hb20.jpg' },
-    { title: 'Farol Jeep Commander Led Arteb', description: 'Produto original feito em acrilico resistent', price: 39.0 ,imageUrl: 'https://example.com/images/farol-hb20.jpg'},
-    { title: 'Farol Hb20 Arteb Mascara Negra ', description: 'Produto original feito em acrilico resistente', price: 199.9,imageUrl: 'https://example.com/images/farol-hb20.jpg'},
-  ]
+  const tools = [
+    { title: "Carcaça", imageUrl: "https://i.postimg.cc/tool1.jpg" },
+    { title: "farol", imageUrl: "https://i.postimg.cc/MTyfhFdb/farol2.png" },
+    { title: "lanterna", imageUrl: "https://i.postimg.cc/NM12Wzp4/lanterna.png" },
+    { title: "lente de lanterna", imageUrl: "https://i.postimg.cc/brpS89Bm/lente.png" },
+    { title: "lente de farol", imageUrl: "https://i.postimg.cc/d18Zzx4R/lente-farol.png" },
+  ];
 
-  for (const p of products) {
-    await prisma.product.create({
-      data: p,
-    })
+  for (const tool of tools) {
+    await prisma.menuToolsButton.upsert({
+      where: { title: tool.title },
+      update: {},
+      create: tool,
+    });
   }
-
-  console.log('Seed concluído')
 }
 
 main()
-  .catch(e => console.error(e))
-  .finally(() => prisma.$disconnect())
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

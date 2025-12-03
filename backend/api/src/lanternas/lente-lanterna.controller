@@ -1,0 +1,18 @@
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { LanternasService } from './lanternas.service';
+import { CreateLanternaDto } from './dto/create-lanterna.dto';
+
+@Controller('lanternas')
+export class LenteLanternaController {
+  constructor(private service: LanternasService) {}
+
+  @Get()
+  findAll() {
+    return this.service.findAll();
+  }
+
+  @Post()
+  create(@Body() dto: CreateLanternaDto) {
+    return this.service.create(dto);
+  }
+}

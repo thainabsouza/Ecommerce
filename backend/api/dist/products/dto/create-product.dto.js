@@ -11,11 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateProductDto = void 0;
 const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
 class CreateProductDto {
     title;
     description;
     price;
     imageUrl;
+    imgUrl1;
+    imgUrl2;
+    imgUrl3;
 }
 exports.CreateProductDto = CreateProductDto;
 __decorate([
@@ -28,12 +32,28 @@ __decorate([
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "description", void 0);
 __decorate([
-    (0, class_validator_1.IsNumber)(),
+    (0, class_transformer_1.Type)(() => Number),
+    (0, class_validator_1.IsNumber)({}, { message: 'O preço deve ser um número' }),
     __metadata("design:type", Number)
 ], CreateProductDto.prototype, "price", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsUrl)({}, { message: 'A URL da imagem deve ser válida' }),
+    (0, class_validator_1.IsUrl)({}, { message: 'URL principal inválida' }),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "imageUrl", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUrl)({}, { message: 'URL da imagem 1 inválida' }),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "imgUrl1", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUrl)({}, { message: 'URL da imagem 2 inválida' }),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "imgUrl2", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUrl)({}, { message: 'URL da imagem 3 inválida' }),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "imgUrl3", void 0);
 //# sourceMappingURL=create-product.dto.js.map
